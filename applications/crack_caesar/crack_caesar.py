@@ -3,3 +3,29 @@
 
 # Your code here
 
+from collections import Counter 
+
+letter_frequency = [
+    'E', 'T', 'A', 'O', 'H', 'N', 
+    'R', 'I', 'S', 'D', 'L', 'W', 
+    'U', 'G', 'F', 'B', 'M', 'Y', 
+    'C', 'P', 'K', 'V', 'Q', 'J', 
+    'X', 'Z'
+]
+
+with open("applications/crack_caesar/ciphertext.txt", "r") as f:
+    content = f.read()
+
+counter = Counter(filter(str.isalnum, content))
+mapping = {k:v for (k,v) in zip([i[0] for i in counter.most_common()], letter_frequency)}
+output = ""
+
+for character in content:
+    output_character = character
+    if character in mapping.keys():
+        output_character = mapping[character]
+    output += output_character
+
+if __name__ == "__main__":
+    print(output)
+
